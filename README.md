@@ -1,10 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MoonChute Next Starter
+
+An example dApp using MoonChute sdk
 
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
-```bash
+```shell
 npm run dev
 # or
 yarn dev
@@ -14,23 +16,58 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Documentation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Please visit [moonchute](https://docs.moonchute.xyz/) for full documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## SDK Install
 
-## Learn More
+install moonchute and its dependency
 
-To learn more about Next.js, take a look at the following resources:
+```shell
+npm install moonchute
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Quick Start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Get smart accounts owned by `address` with moonchute
 
-## Deploy on Vercel
+```typescript
+import { MoonChuteConfig, createMoonChuteConfig } from 'moonchute'
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+const config = createMoonChuteConfig({
+  apiKey: <YOUR_MOONCHUTE_API_KEY>,
+});
+
+function App() {
+  return (
+    <MoonChuteConfig config={config}>
+      <SmartAccounts />
+    </MoonChuteConfig>
+  )
+}
+```
+
+```typescript
+import { useSmartAccounts } from "moonchute";
+
+export default function SmartAccounts() {
+  const { data } = useSmartAccounts({
+    address: "0x6136b647C9971f1EDc7641e14a9E0Ca7b2626080",
+    chainId: 137,
+  });
+
+  if (data) {
+    return (
+      <div>
+        {data.smartAccount?.map((sa, key) => (
+          <div
+            key={key}
+          >{`Address: ${sa.address} / Provider: ${sa.provider}`}</div>
+        ))}
+      </div>
+    );
+  }
+}
+```
