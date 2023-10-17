@@ -1,7 +1,7 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useSmartAccounts } from "anchute";
+import { useSmartAccounts } from "moonchute";
 import { useAccount, useNetwork } from "wagmi";
 import AccountDetails from "./components/AccountDetails";
 import Loader from "./components/Loader";
@@ -16,7 +16,11 @@ function CardLayout({ children }: { children: any }) {
 export default function RetrieveAccounts() {
   const { address } = useAccount();
   const { chain } = useNetwork();
-  const { data: accounts, isLoading } = useSmartAccounts({
+  const {
+    data: accounts,
+    isLoading,
+    isError,
+  } = useSmartAccounts({
     address: address,
     chainId: chain?.id,
   });

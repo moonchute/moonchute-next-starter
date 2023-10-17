@@ -6,7 +6,7 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import { ChuteConfig, createMoonChuteConfig } from "anchute";
+import { MoonChuteConfig, createMoonChuteConfig } from "moonchute";
 import { useEffect, useState } from "react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { arbitrum, base, optimism, polygon, polygonMumbai } from "wagmi/chains";
@@ -35,7 +35,7 @@ const wagmiConfig = createConfig({
 });
 
 const config = createMoonChuteConfig({
-  apiKey: process.env.MOONCHUTE_API_KEY || "",
+  apiKey: process.env.NEXT_PUBLIC_MOONCHUTE_API_KEY || "",
 });
 
 export default function Home() {
@@ -57,9 +57,9 @@ export default function Home() {
             accentColor: "#15aabf",
           })}
         >
-          <ChuteConfig config={config}>
+          <MoonChuteConfig config={config}>
             <RetrieveAccounts />
-          </ChuteConfig>
+          </MoonChuteConfig>
         </RainbowKitProvider>
       </WagmiConfig>
     </main>
