@@ -6,20 +6,16 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import { MoonChuteConfig, createMoonChuteConfig } from "moonchute";
+import { createMoonChuteConfig, MoonChuteConfig } from "moonchute";
 import { useEffect, useState } from "react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { arbitrum, base, optimism, polygon, polygonMumbai } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import RetrieveAccounts from "./RetrieveAccounts";
 
 const { chains, publicClient } = configureChains(
   [polygonMumbai, polygon, optimism, arbitrum, base],
-  [
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || "" }),
-    publicProvider(),
-  ]
+  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
