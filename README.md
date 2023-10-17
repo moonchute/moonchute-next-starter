@@ -1,73 +1,39 @@
-# MoonChute Next Starter
+# 🪂 MoonChute Next Starter
 
-An example dApp using MoonChute sdk
+An example dApp with the MoonChute SDK.
 
-## Getting Started
+## 🚀 Quick Start
 
-Run the development server:
+### Obtain your API Key:
+
+Visit the [MoonChute Dashboard](https://dashboard.moonchute.xyz) and log in to find your API key.
+
+### Setup & Dependencies:
+
+Install the required packages:
+
+```shell
+npm install
+# or
+yarn
+```
+
+### Configure Your Environment:
+
+Add your API key to your `.env` file:
+
+```makefile
+NEXT_PUBLIC_MOONCHUTE_API_KEY=your_api_key_here
+```
+
+### Run Your dApp:
 
 ```shell
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-## Documentation
+## 📚 Resources
 
-Please visit [moonchute](https://docs.moonchute.xyz/) for full documentation
-
-## SDK Install
-
-install moonchute and its dependency
-
-```shell
-npm install moonchute
-```
-
-## Quick Start
-
-Get smart accounts owned by `address` with moonchute
-
-```typescript
-import { MoonChuteConfig, createMoonChuteConfig } from 'moonchute'
-
-
-const config = createMoonChuteConfig({
-  apiKey: <YOUR_MOONCHUTE_API_KEY>,
-});
-
-function App() {
-  return (
-    <MoonChuteConfig config={config}>
-      <SmartAccounts />
-    </MoonChuteConfig>
-  )
-}
-```
-
-```typescript
-import { useSmartAccounts } from "moonchute";
-
-export default function SmartAccounts() {
-  const { data } = useSmartAccounts({
-    address: "0x6136b647C9971f1EDc7641e14a9E0Ca7b2626080",
-    chainId: 137,
-  });
-
-  if (data) {
-    return (
-      <div>
-        {data.smartAccount?.map((sa, key) => (
-          <div
-            key={key}
-          >{`Address: ${sa.address} / Provider: ${sa.provider}`}</div>
-        ))}
-      </div>
-    );
-  }
-}
-```
+[MoonChute Documentation](https://docs.moonchute.xyz)
