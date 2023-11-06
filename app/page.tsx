@@ -1,63 +1,65 @@
 "use client";
 
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import {
-  getDefaultWallets,
-  lightTheme,
-  RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
-import "@rainbow-me/rainbowkit/styles.css";
-import { createMoonChuteConfig, MoonChuteConfig } from "moonchute";
-import { useEffect, useState } from "react";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { arbitrum, base, optimism, polygon, polygonMumbai } from "wagmi/chains";
-import { publicProvider } from "wagmi/providers/public";
-import RetrieveAccounts from "./RetrieveAccounts";
+  usePrepareUserOperation,
+  useSendUserOperation,
+  useSmartAccounts,
+} from "moonchute";
+import { useAccount, useNetwork } from "wagmi";
+import SampleNFTABI from "./SampleNFT.json";
+import AccountDetails from "./components/AccountDetails";
+import CardLayout from "./components/CardLayout";
+import Loader from "./components/Loader";
 
-const { chains, publicClient } = configureChains(
-  [polygonMumbai, polygon, optimism, arbitrum, base],
-  [publicProvider()]
-);
+export default function RetrieveAccounts() {
+  const { address } = useAccount();
+  const { chain } = useNetwork();
+  const { data: accounts, isLoading } = useSmartAccounts({
+    address: address,
+    chainId: chain?.id,
+  });
+  const { config, isError: puoIsError } = usePrepareUserOperation({
+    address: "0x34bE7f35132E97915633BC1fc020364EA5134863",
+    account: accounts?.smartAccount?.[0]?.address as `0x${string}`,
+    abi: SampleNFTABI.abi,
+    functionName: "mint",
+    args: [accounts?.smartAccount?.[0]?.address || address],
+  });
 
-const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
-  projectId: "90ac76822bf02af9e25215888f547e70",
-  chains,
-});
-
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-});
-
-const config = createMoonChuteConfig({
-  apiKey: process.env.NEXT_PUBLIC_MOONCHUTE_API_KEY || "",
-});
-
-export default function Home() {
-  const [hydrate, setHydrate] = useState(false);
-  useEffect(() => {
-    setHydrate(true);
-  }, []);
-
-  if (!hydrate) {
-    return null;
-  }
+  const {
+    data: userOpHash,
+    write,
+    isError: suoIsError,
+  } = useSendUserOperation(config);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-6 py-24 bg-cyan-50">
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider
-          chains={chains}
-          theme={lightTheme({
-            accentColor: "#15aabf",
-          })}
-        >
-          <MoonChuteConfig config={config}>
-            <RetrieveAccounts />
-          </MoonChuteConfig>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </main>
+    <>
+      <h1 className="text-2xl font-bold">Retrieve your smart accounts:</h1>
+      <button
+        onClick={() => {
+          if (write) write();
+        }}
+      >
+        Send UserOperation
+      </button>
+      {userOpHash && <p>UserOp Hash: {userOpHash.userOpHash}</p>}
+      <div className="flex flex-col items-center miw-w-full md:min-w-3/4 bg-[#F6BD41] border-zinc-900 dark:border-0 border-2 rounded-lg p-6 md:p-10 mt-2">
+        <ConnectButton />
+        <div className="grid grid-cols-1 my-12 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+          {isLoading
+            ? [...Array(3)].map((_, index) => (
+                <CardLayout key={index}>
+                  <Loader />
+                </CardLayout>
+              ))
+            : accounts?.smartAccount?.map((account: any, index: number) => (
+                <CardLayout key={index}>
+                  <AccountDetails account={account} index={index} />
+                </CardLayout>
+              ))}
+        </div>
+      </div>
+    </>
   );
 }
