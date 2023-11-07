@@ -41,7 +41,9 @@ export default function RetrieveAccounts() {
   useEffect(() => {
     if (createUserOp) {
       console.log(createUserOp);
-      alert(`Create successfully! userOp hash: ${createUserOp.userOpHash}`);
+      alert(
+        `Create successfully! userOp hash: ${createUserOp.userOpHash}. Please allow some time for the userop to be confirmed.`
+      );
     }
   }, [createUserOp]);
 

@@ -23,7 +23,7 @@ yarn
 Add your API key to your `.env` file:
 
 ```makefile
-NEXT_PUBLIC_MOONCHUTE_API_KEY=your_api_key_here
+NEXT_PUBLIC_MOONCHUTE_APP_ID=your_app_id_here
 ```
 
 ### Run Your dApp:
