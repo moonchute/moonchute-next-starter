@@ -36,7 +36,9 @@ export default function AccountDetails({
   useEffect(() => {
     if (userOpHash) {
       console.log(userOpHash);
-      alert(`Mint successfully! userOp hash: ${userOpHash.userOpHash}`);
+      alert(
+        `Mint successfully! userOp hash: ${userOpHash.userOpHash}. Please allow some time for the userop to be confirmed.`
+      );
     }
   }, [userOpHash]);
 

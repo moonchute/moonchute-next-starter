@@ -5,15 +5,11 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { createMoonChuteConfig, MoonChuteConfig } from "moonchute";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { arbitrum, base, optimism, polygon, polygonMumbai } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient } = configureChains(
   [polygonMumbai, polygon, optimism, arbitrum, base],
-  [
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || "" }),
-    publicProvider(),
-  ]
+  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
@@ -30,7 +26,7 @@ const wagmiConfig = createConfig({
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const config = createMoonChuteConfig({
-    appId: process.env.NEXT_PUBLIC_MOONCHUTE_API_KEY || "",
+    appId: process.env.NEXT_PUBLIC_MOONCHUTE_APP_ID || "",
   });
 
   return (
