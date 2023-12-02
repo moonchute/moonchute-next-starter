@@ -4,11 +4,18 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { createMoonChuteConfig, MoonChuteConfig } from "moonchute";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { arbitrum, base, optimism, polygon, polygonMumbai } from "wagmi/chains";
+import {
+  arbitrum,
+  base,
+  fuse,
+  optimism,
+  polygon,
+  polygonMumbai,
+} from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient } = configureChains(
-  [polygonMumbai, polygon, optimism, arbitrum, base],
+  [polygonMumbai, polygon, optimism, arbitrum, base, fuse],
   [publicProvider()]
 );
 

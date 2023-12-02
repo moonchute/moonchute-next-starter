@@ -3375,10 +3375,10 @@ mlly@^1.2.0, mlly@^1.4.0:
     pkg-types "^1.0.3"
     ufo "^1.3.0"
 
-moonchute@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/moonchute/-/moonchute-0.0.5.tgz#98047b71b6a90c54a041a681cd5b4b1d696a2da3"
-  integrity sha512-jkKIfQ95jLzl0mNrLR9S7DKRqHwxPxPHrzFdjiV12lHD27Gn+GP/2sdSjMgzfS3Ut5AuR1ooXBVlmhKFluzZzw==
+moonchute@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/moonchute/-/moonchute-0.0.7.tgz#337bb099d16f96682034dc5509742518d01453c7"
+  integrity sha512-U+FnE26ssfM/Lv5D7KNG+qXM25N8AQSIrNY28PylPeh1IfxbCxwP/+QQ3nhjceacPHjZiF2cBWdCezx1vOfi9w==
   dependencies:
     "@tanstack/query-sync-storage-persister" "^4.35.7"
     "@tanstack/react-query" "^4.35.7"
