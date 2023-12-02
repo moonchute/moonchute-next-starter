@@ -4,7 +4,6 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useCreateSmartAccount, useSmartAccounts } from "moonchute";
 import { useEffect, useState } from "react";
 import { useAccount, useNetwork } from "wagmi";
-import SampleNFTABI from "./SampleNFT.json";
 import AccountDetails from "./components/AccountDetails";
 import CardLayout from "./components/CardLayout";
 import Loader from "./components/Loader";
@@ -27,12 +26,7 @@ export default function RetrieveAccounts() {
     write: createWrite,
     isLoading: createIsLoading,
     isError: createIsError,
-  } = useCreateSmartAccount({
-    abi: SampleNFTABI.abi,
-    address: "0x34bE7f35132E97915633BC1fc020364EA5134863",
-    functionName: "mint",
-    args: ["0x6136b647C9971f1EDc7641e14a9E0Ca7b2626080"],
-  });
+  } = useCreateSmartAccount({});
 
   useEffect(() => {
     setHydration(true);
